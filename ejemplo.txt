@@ -1,0 +1,35 @@
+import { useSelector, useDispatch } from "react-redux"; // el hook useSelector me permite obtener el state de mi store
+import { setUser, unsetUser } from "./reducers/user/userSlice";
+
+export const App = () => {
+  //el dispatch se va a encargar de actualizar el state a traves de las acciones
+  const dispatch = useDispatch();
+
+  //el useSelector me permite consumir el estado global de mi store
+  const { email } = useSelector((state) => state.user);
+  return (
+    <div className="container">
+      <h1>Hello World</h1>
+      <p>El email en mi store es: {email}</p>
+      <button
+        className="btn btn-primary"
+        onClick={() =>
+          dispatch(
+            setUser({
+              email: "emi@gmail.com",
+              fullName: "Emi",
+              token: "123456789",
+            })
+          )
+        }
+      >
+        set User
+      </button>
+      <button className="btn btn-danger" onClick={() => dispatch(unsetUser())}>
+        unset User
+      </button>
+    </div>
+  );
+};
+
+export default App;
